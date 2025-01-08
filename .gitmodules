@@ -7,3 +7,15 @@
 [submodule "components/serialized_struct_generator"]
 	path = components/serialized_struct_generator
 	url = https://github.com/TimoGuy/serialized_struct_generator.git
+[submodule "components/world_entity"]
+	path = components/world_entity
+	url = https://github.com/TimoGuy/world_entity.git
+[submodule "components/input_handling"]
+	path = components/input_handling
+	url = https://github.com/TimoGuy/input_handling.git
+[submodule "components/ui_runner"]
+	path = components/ui_runner
+	url = https://github.com/TimoGuy/ui_runner.git
+[submodule "components/model_loader_animator"]
+	path = components/model_loader_animator
+	url = https://github.com/TimoGuy/model_loader_animator.git
