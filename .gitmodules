@@ -1,0 +1,9 @@
+[submodule "multithreaded_job_system"]
+	path = multithreaded_job_system
+	url = https://github.com/TimoGuy/multithreaded_job_system.git
+[submodule "monolithic_renderer"]
+	path = monolithic_renderer
+	url = https://github.com/TimoGuy/monolithic_renderer.git
+[submodule "serialized_struct_generator"]
+	path = serialized_struct_generator
+	url = https://github.com/TimoGuy/serialized_struct_generator.git
