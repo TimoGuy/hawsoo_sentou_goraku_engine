@@ -18,8 +18,9 @@ if(MSVC)
 endif()
 
 # Dependencies.
-add_subdirectory("components/monolithic_renderer")
-add_subdirectory("components/multithreaded_job_system")
+add_subdirectory(components/monolithic_renderer)
+add_subdirectory(components/multithreaded_job_system)
+add_subdirectory(components/world_entity)
 
 # Static library build.
 add_library(${PROJECT_NAME} STATIC)
