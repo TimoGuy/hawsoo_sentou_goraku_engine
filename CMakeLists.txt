@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.28)
 
+# Project
+if(DEFINED hawsoo_sentou_goraku_engine_GUARD)
+    if(NOT hawsoo_sentou_goraku_engine_GUARD STREQUAL ${CMAKE_CURRENT_BINARY_DIR})
+        return() # Project has been already included by someone else
+    endif()
+else()
+    set(hawsoo_sentou_goraku_engine_GUARD ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "hawsoo_sentou_goraku_engine guard")
+endif()
 project(hawsoo_sentou_goraku_engine
     VERSION 0.1.0
     LANGUAGES CXX
@@ -30,6 +38,7 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
+        # ${multithreaded_job_system_INCLUDE_DIR}
 )
 
 target_sources(${PROJECT_NAME}
