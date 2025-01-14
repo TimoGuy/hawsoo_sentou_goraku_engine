@@ -26,8 +26,16 @@ if(MSVC)
 endif()
 
 # Dependencies.
+set(monolithic_renderer_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/monolithic_renderer/include)
 add_subdirectory(components/monolithic_renderer)
+
+set(monolithic_renderer_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/multithreaded_job_system/include)
 add_subdirectory(components/multithreaded_job_system)
+
+set(monolithic_renderer_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/world_entity/include)
 add_subdirectory(components/world_entity)
 
 # Static library build.
@@ -38,7 +46,7 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        # ${multithreaded_job_system_INCLUDE_DIR}
+        ${monolithic_renderer_INCLUDE_DIR}
 )
 
 target_sources(${PROJECT_NAME}
