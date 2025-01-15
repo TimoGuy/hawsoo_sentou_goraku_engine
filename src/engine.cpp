@@ -10,11 +10,6 @@
 class Engine::Impl
 {
 public:
-    Impl(const std::string& app_name)
-        : m_app_name(app_name)
-    {
-    }
-
     bool run(
         const std::string& app_name,
         uint32_t num_threads,
@@ -23,7 +18,7 @@ public:
     {
         // Instantiate job sources.
         std::vector<Job_source*> job_sources;
-        Monolithic_renderer renderer{ m_app_name, content_width, content_height };
+        Monolithic_renderer renderer{ app_name, content_width, content_height };
         job_sources.emplace_back(&renderer);
 
         // Create job system with job sources.
@@ -31,7 +26,6 @@ public:
         return job_system.run();
     }
 
-    std::string m_app_name;
     std::vector<World_entity> m_world_entities;
 };
 

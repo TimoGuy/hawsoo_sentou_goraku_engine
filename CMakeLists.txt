@@ -39,7 +39,10 @@ set(monolithic_renderer_INCLUDE_DIR
 add_subdirectory(components/world_entity)
 
 # Static library build.
-add_library(${PROJECT_NAME} STATIC)
+add_library(${PROJECT_NAME}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/engine.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine.h
+)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
@@ -47,14 +50,7 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${monolithic_renderer_INCLUDE_DIR}
-)
-
-target_sources(${PROJECT_NAME}
-    PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/hsge_public.h
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/engine.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/engine.h
+        ${cglm_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
