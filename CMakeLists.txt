@@ -49,10 +49,10 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${cglm_INCLUDE_DIR}
         ${monolithic_renderer_INCLUDE_DIR}
         ${multithreaded_job_system_INCLUDE_DIR}
         ${world_entity_INCLUDE_DIR}
-        ${cglm_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
