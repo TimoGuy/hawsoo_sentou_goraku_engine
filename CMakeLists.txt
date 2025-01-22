@@ -34,6 +34,10 @@ set(multithreaded_job_system_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/multithreaded_job_system/include)
 add_subdirectory(components/multithreaded_job_system)
 
+set(ticking_world_simulation_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/ticking_world_simulation/include)
+add_subdirectory(components/ticking_world_simulation)
+
 set(world_entity_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/world_entity/include)
 add_subdirectory(components/world_entity)
@@ -42,6 +46,8 @@ add_subdirectory(components/world_entity)
 add_library(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity_player.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity_player.h
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -52,10 +58,13 @@ target_include_directories(${PROJECT_NAME}
         ${cglm_INCLUDE_DIR}
         ${monolithic_renderer_INCLUDE_DIR}
         ${multithreaded_job_system_INCLUDE_DIR}
+        ${ticking_world_simulation_INCLUDE_DIR}
         ${world_entity_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
     monolithic_renderer
     multithreaded_job_system
+    ticking_world_simulation
+    world_entity
 )

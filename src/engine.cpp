@@ -3,6 +3,7 @@
 #include <atomic>
 #include <vector>
 #include "monolithic_renderer_public.h"
+#include "ticking_world_simulation_public.h"
 #include "world_entity_public.h"
 
 
@@ -19,7 +20,9 @@ public:
         // Instantiate job sources.
         std::vector<Job_source*> job_sources;
         Monolithic_renderer renderer{ app_name, content_width, content_height };
+        World_simulation simulation{ };
         job_sources.emplace_back(&renderer);
+        job_sources.emplace_back(&simulation);
 
         // Create job system with job sources.
         Job_system job_system{ num_threads, std::move(job_sources) };
