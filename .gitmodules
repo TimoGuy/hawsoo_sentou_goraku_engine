@@ -19,3 +19,6 @@
 [submodule "components/model_loader_animator"]
 	path = components/model_loader_animator
 	url = https://github.com/TimoGuy/model_loader_animator.git
+[submodule "components/ticking_world_simulation"]
+	path = components/ticking_world_simulation
+	url = https://github.com/TimoGuy/ticking_world_simulation.git
