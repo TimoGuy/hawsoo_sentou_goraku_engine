@@ -14,8 +14,8 @@ public:
     bool run(
         const std::string& app_name,
         uint32_t num_threads,
-        int32_t content_width,
-        int32_t content_height);
+        int32_t screen_width,
+        int32_t screen_height);
 
 private:
     class Impl;
