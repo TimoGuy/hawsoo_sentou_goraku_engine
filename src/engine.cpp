@@ -21,11 +21,19 @@ public:
         const std::string& app_name,
         uint32_t num_threads,
         int32_t screen_width,
-        int32_t screen_height)
+        int32_t screen_height,
+        int32_t fallback_screen_width,
+        int32_t fallback_screen_height)
     {
         // Instantiate job sources.
         std::vector<Job_source*> job_sources;
-        Monolithic_renderer renderer{ app_name, screen_width, screen_height };
+        Monolithic_renderer renderer{
+            app_name,
+            screen_width,
+            screen_height,
+            fallback_screen_width,
+            fallback_screen_height
+        };
         World_simulation simulation{ };
         job_sources.emplace_back(&renderer);
         job_sources.emplace_back(&simulation);
@@ -50,7 +58,14 @@ bool Engine::run(
     const std::string& app_name,
     uint32_t num_threads,
     int32_t screen_width,
-    int32_t screen_height)
+    int32_t screen_height,
+    int32_t fallback_screen_width,
+    int32_t fallback_screen_height)
 {
-    return m_pimpl->run(app_name, num_threads, screen_width, screen_height);
+    return m_pimpl->run(app_name,
+                        num_threads,
+                        screen_width,
+                        screen_height,
+                        fallback_screen_width,
+                        fallback_screen_height);
 }

@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <string>
-#include "multithreaded_job_system_public.h"
 
 
 class Engine
@@ -15,7 +14,9 @@ public:
         const std::string& app_name,
         uint32_t num_threads,
         int32_t screen_width,
-        int32_t screen_height);
+        int32_t screen_height,
+        int32_t fallback_screen_width,
+        int32_t fallback_screen_height);
 
 private:
     class Impl;
