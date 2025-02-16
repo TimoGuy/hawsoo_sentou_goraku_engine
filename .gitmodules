@@ -22,3 +22,6 @@
 [submodule "components/ticking_world_simulation"]
 	path = components/ticking_world_simulation
 	url = https://github.com/TimoGuy/ticking_world_simulation.git
+[submodule "components/timing_reporter_macro_magic"]
+	path = components/timing_reporter_macro_magic
+	url = https://github.com/TimoGuy/timing_reporter_macro_magic.git

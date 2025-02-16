@@ -28,18 +28,18 @@ endif()
 # Dependencies.
 set(monolithic_renderer_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/monolithic_renderer/include)
-add_subdirectory(components/monolithic_renderer)
-
 set(multithreaded_job_system_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/multithreaded_job_system/include)
-add_subdirectory(components/multithreaded_job_system)
-
 set(ticking_world_simulation_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/ticking_world_simulation/include)
-add_subdirectory(components/ticking_world_simulation)
-
+set(timing_reporter_macro_magic_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/timing_reporter_macro_magic/include)  # @NOTE: header only.
 set(world_entity_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/world_entity/include)
+
+add_subdirectory(components/monolithic_renderer)
+add_subdirectory(components/multithreaded_job_system)
+add_subdirectory(components/ticking_world_simulation)
 add_subdirectory(components/world_entity)
 
 # Static library build.
