@@ -68,3 +68,26 @@ target_link_libraries(${PROJECT_NAME}
     ticking_world_simulation
     world_entity
 )
+
+# Create symlink to assets folder.
+if(DEFINED ASSET_DIR)
+    set(dir_name ${ASSET_DIR})
+    set(target_dir_name ${CMAKE_BINARY_DIR}/assets)
+    if(WIN32)
+        string(REPLACE "/" "\\" win32_dir_name ${dir_name})
+        string(REPLACE "/" "\\" win32_target_dir_name ${target_dir_name})
+        if(EXISTS ${dir_name})
+            execute_process(
+                COMMAND cmd /C rmdir ${win32_target_dir_name}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+        endif()
+        execute_process(
+            COMMAND cmd /C mklink /J ${win32_target_dir_name} ${win32_dir_name}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+    else()
+        # @TODO: Probably add the delete symlink code right here?
+        file(CREATE_LINK ${dir_name} ${target_dir_name} SYMBOLIC)
+    endif()
+else()
+    message(FATAL_ERROR "Asset folder location must be defined in `ASSET_DIR`")
+endif()
