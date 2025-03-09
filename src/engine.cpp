@@ -8,6 +8,7 @@
 
 #include <atomic>
 #include <vector>
+#include "input_handling_public.h"
 #include "monolithic_renderer_public.h"
 #include "ticking_world_simulation_public.h"
 #include "world_entity_public.h"
@@ -25,6 +26,42 @@ public:
         int32_t fallback_screen_width,
         int32_t fallback_screen_height)
     {
+        // Single player.
+        input_handling::set_num_state_sets(1);
+
+        // Set default input scheme.
+        using IHC_e = input_handling::Key_mouse_control;
+        input_handling::set_key_binding_map({
+            { IH_KEY_A,            IHC_e::GP_MOVEMENT_LEFT           },
+            { IH_KEY_D,            IHC_e::GP_MOVEMENT_RIGHT          },
+            { IH_KEY_W,            IHC_e::GP_MOVEMENT_UP             },
+            { IH_KEY_S,            IHC_e::GP_MOVEMENT_DOWN           },
+            { IH_KEY_SPACE,        IHC_e::GP_JUMP_BOOL               },
+            { IH_KEY_LEFT_SHIFT,   IHC_e::GP_DODGE_SPRINT_BOOL       },
+            { IH_KEY_LEFT_CONTROL, IHC_e::GP_SWITCH_WEAPON_BOOL      },
+            { IH_KEY_E,            IHC_e::GP_INTERACT_BOOL           },
+            { IH_KEY_A,            IHC_e::UI_NAVIGATE_MOVEMENT_LEFT  },
+            { IH_KEY_D,            IHC_e::UI_NAVIGATE_MOVEMENT_RIGHT },
+            { IH_KEY_W,            IHC_e::UI_NAVIGATE_MOVEMENT_UP    },
+            { IH_KEY_S,            IHC_e::UI_NAVIGATE_MOVEMENT_DOWN  },
+            { IH_KEY_ENTER,        IHC_e::UI_CONFIRM_BOOL            },
+            { IH_KEY_SPACE,        IHC_e::UI_CONFIRM_BOOL            },
+            { IH_KEY_ESCAPE,       IHC_e::UI_CANCEL_BOOL             },
+            { IH_KEY_A,            IHC_e::LE_MOVEMENT_LEFT           },
+            { IH_KEY_D,            IHC_e::LE_MOVEMENT_RIGHT          },
+            { IH_KEY_W,            IHC_e::LE_MOVEMENT_UP             },
+            { IH_KEY_S,            IHC_e::LE_MOVEMENT_DOWN           },
+            { IH_KEY_E,            IHC_e::LE_MOVE_WORLD_Y_AXIS_UP    },
+            { IH_KEY_Q,            IHC_e::LE_MOVE_WORLD_Y_AXIS_DOWN  },
+            { IH_KEY_LEFT_SHIFT,   IHC_e::LE_LSHIFT_MODIFIER_BOOL    },
+            { IH_KEY_LEFT_CONTROL, IHC_e::LE_LCTRL_MODIFIER_BOOL     },
+        });
+        input_handling::set_mousebutton_binding_map({
+            { IH_MOUSE_BUTTON_LEFT,  IHC_e::GP_ATTACK_BOOL        },
+            { IH_MOUSE_BUTTON_RIGHT, IHC_e::GP_DEFLECT_BLOCK_BOOL },
+            { IH_MOUSE_BUTTON_RIGHT, IHC_e::LE_CAMERA_MOVE_BOOL   },
+        });
+
         // Instantiate job sources.
         std::vector<Job_source*> job_sources;
         Monolithic_renderer renderer{

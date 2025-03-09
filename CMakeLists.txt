@@ -26,6 +26,8 @@ if(MSVC)
 endif()
 
 # Dependencies.
+set(input_handling_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/input_handling/include)
 set(monolithic_renderer_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/monolithic_renderer/include)
 set(multithreaded_job_system_INCLUDE_DIR
@@ -37,6 +39,7 @@ set(timing_reporter_macro_magic_INCLUDE_DIR
 set(world_entity_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/world_entity/include)
 
+add_subdirectory(components/input_handling)
 add_subdirectory(components/monolithic_renderer)
 add_subdirectory(components/multithreaded_job_system)
 add_subdirectory(components/ticking_world_simulation)
@@ -63,6 +66,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
+    input_handling
     monolithic_renderer
     multithreaded_job_system
     ticking_world_simulation
