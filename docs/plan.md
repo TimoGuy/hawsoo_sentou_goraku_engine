@@ -33,3 +33,24 @@
 
 - Singleplayer.
     - Perhaps, sending photos and stuff to others would be fun! (Well, that can be accomplished with a photo mode and opening the gallery directory)
+
+
+## Order of Epics
+
+- [x] Basic 3D renderer.
+
+- [ ] 3D character controller.
+
+- [ ] Skeletal animations in renderer.
+
+- [ ] Combat animation and hitbox interaction.
+
+- [ ] Humanoid Enemy AI.
+    - ~~[ ] PVP~~ No probably not due to scope and adding more to the renderer or networking.
+
+- [ ] Material collection and weapon materialization/durability/destruction.
+    - Not sure if having the ability to merge durability of multiple weapons together would be good.
+
+- [ ] World streaming and level loading.
+
+- [ ] Nice-looking-izing.
