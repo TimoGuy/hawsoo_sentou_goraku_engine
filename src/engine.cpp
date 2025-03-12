@@ -26,8 +26,9 @@ public:
         int32_t fallback_screen_width,
         int32_t fallback_screen_height)
     {
-        // Single player.
-        input_handling::set_num_state_sets(1);
+        // Init input handling.
+        input_handling::set_num_state_sets(1);  // Single player.
+        input_handling::init_key_mouse_adapter();
 
         // Set default input scheme.
         using IHC_e = input_handling::Key_mouse_control;
