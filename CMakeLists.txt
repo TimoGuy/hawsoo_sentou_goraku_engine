@@ -27,6 +27,9 @@ if(MSVC)
 endif()
 
 # Dependencies.
+add_compile_definitions(CGLM_FORCE_DEPTH_ZERO_TO_ONE)  # Force cglm to Vulkan bounds.
+set(cglm_INCLUDE_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cglm/include)  # @NOTE: header only.
 set(input_handling_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/input_handling/include)
 set(monolithic_renderer_INCLUDE_DIR

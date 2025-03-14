@@ -72,7 +72,7 @@ public:
             fallback_screen_width,
             fallback_screen_height
         };
-        World_simulation simulation{ };
+        World_simulation simulation{ num_threads };
         job_sources.emplace_back(&renderer);
         job_sources.emplace_back(&simulation);
 
