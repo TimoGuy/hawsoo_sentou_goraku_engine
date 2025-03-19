@@ -4,6 +4,7 @@
 Entity_player::Entity_player()
     : Simulating_entity_ifc{}
     , World_entity{ false }
+    , m_actor{ // @TODO: START HERE!!!!!!}
 {
 
 }
