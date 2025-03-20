@@ -8,6 +8,9 @@
 /*
  @NOCHECKIN: For prototyping.
 
+    YKNOW, IT MAY BE FEASIBLE TO HAVE EVERYTHING DATA BASED.
+        NOTE: Have each component belong to some kind of pool thing.
+
     - Input step
         - None.
         - Player movement input.
@@ -34,6 +37,23 @@
     - Render object step (@NOTE: Render job source)
         - Pull interpolated physics transform at a rate that is appropriate for the render thread.
 
+
+
+
+    Simulation pipeline:
+    - Group 1 (1 job per input-logic-animator set (input and animator optional)):
+      - Input step (write to logic step)
+            ↓
+      - Logic step (set requested animation to play (if have animator))
+            ↓
+      - Calculate skeletal animation bone matrices.
+
+    - Group 2 (1 job per physics objects)
+      - Write velocity and transforms to physics objects based off changes.
+      - @NOTE: Happens after skeletal animation bone matrices bc of hit boxes and hurt boxes.
+
+    - Group 3 (Only one job... well until it's multithreaded, then it'll be one job for every core (one master, remaining supporters)).
+      - Update physics world.
  */
 
 
