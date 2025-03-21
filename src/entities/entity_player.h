@@ -41,6 +41,10 @@
 
 
     Simulation pipeline:
+    - Group 1: "Simulate logic update"
+    - Group 2: "Set physics inputs"
+    - Group 3: "Tick physics system"
+
     - Group 1 (1 job per input-logic-animator set (input and animator optional)):
       - Input step (write to logic step)
             ↓
