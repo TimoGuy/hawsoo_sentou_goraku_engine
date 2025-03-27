@@ -53,8 +53,6 @@ add_subdirectory(components/world_entity)
 add_library(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity_player.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/entities/entity_player.h
 )
 
 target_include_directories(${PROJECT_NAME}
