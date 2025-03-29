@@ -85,7 +85,8 @@ public:
         class Player_entity : public simulating::Entity_ifc
         {
         public:
-            std::vector<simulating::Behavior_ifc*> on_create(size_t creation_idx)
+            void on_create(size_t creation_idx,
+                           simulating::Edit_behavior_groups_ifc& editor) override
             {
                 m_phys_actor =
                     std::make_unique<phys_obj::Actor_character_controller>(
@@ -95,28 +96,42 @@ public:
                             .radius = 0.5f,
                             .half_height = 1.0f,
                         });
-                m_input = std::make_unique<std_behavior::Gamepad_input_behavior>();
-                m_movement = std::make_unique<std_behavior::Humanoid_movement>(*m_phys_actor);
-                m_animator = std::make_unique<std_behavior::Humanoid_animator>();
 
-                m_input->set_output(m_movement->get_data_key());
-                m_movement->set_output(m_animator->get_data_key());
+                m_behaviors.reserve(3);
+                auto& input{
+                    m_behaviors.emplace_back(
+                        std::make_unique<std_behavior::Gamepad_input_behavior>()) };
+                auto& movement{
+                    m_behaviors.emplace_back(
+                        std::make_unique<std_behavior::Humanoid_movement>(*m_phys_actor)) };
+                auto& animator{
+                    m_behaviors.emplace_back(
+                        std::make_unique<std_behavior::Humanoid_animator>()) };
 
-                return { m_input.get(), m_movement.get(), m_animator.get(), };
+                static_cast<std_behavior::Gamepad_input_behavior*>(input.get())
+                    ->set_output(movement->get_data_key());
+                static_cast<std_behavior::Humanoid_movement*>(movement.get())
+                    ->set_output(animator->get_data_key());
+
+                editor.add_behavior_group({
+                    input.get(), movement.get(), animator.get(),
+                });
             }
 
-            std::vector<simulating::Behavior_ifc*> on_teardown()
+            void on_teardown(
+                simulating::Edit_behavior_groups_ifc& editor) override
             {
-                // @TODO: Remove behaviors and entity.
-                assert(false);
-                return { m_input.get(), m_movement.get(), m_animator.get(), };
+                assert(m_behaviors.size() == 3);
+                editor.add_behavior_group({
+                    m_behaviors[0].get(), m_behaviors[1].get(), m_behaviors[2].get(),
+                });
+
+                m_phys_actor = nullptr;
             }
 
         private:
-            std::unique_ptr<std_behavior::Gamepad_input_behavior> m_input{ nullptr };
-            std::unique_ptr<std_behavior::Humanoid_movement> m_movement{ nullptr };
-            std::unique_ptr<std_behavior::Humanoid_animator> m_animator{ nullptr };
             std::unique_ptr<phys_obj::Actor_character_controller> m_phys_actor{ nullptr };
+            std::vector<std::unique_ptr<simulating::Behavior_ifc>> m_behaviors;
         };
         simulation.add_sim_entity_to_world(std::make_unique<Player_entity>());
         //////////////////////////////////////
