@@ -122,7 +122,7 @@ public:
                 simulating::Edit_behavior_groups_ifc& editor) override
             {
                 assert(m_behaviors.size() == 3);
-                editor.add_behavior_group({
+                editor.remove_behavior_group({
                     m_behaviors[0].get(), m_behaviors[1].get(), m_behaviors[2].get(),
                 });
 
