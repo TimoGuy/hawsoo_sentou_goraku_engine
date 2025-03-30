@@ -139,8 +139,6 @@ public:
         Job_system job_system{ num_threads, std::move(job_sources) };
         return job_system.run();
     }
-
-    std::vector<World_entity> m_world_entities;
 };
 
 // Wrapper implementation.
