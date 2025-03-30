@@ -85,53 +85,49 @@ public:
         class Player_entity : public simulating::Entity_ifc
         {
         public:
-            void on_create(size_t creation_idx,
-                           simulating::Edit_behavior_groups_ifc& editor) override
+            void on_create(simulating::Edit_behavior_groups_ifc& editor,
+                           size_t creation_idx) override
             {
-                m_phys_actor =
-                    std::make_unique<phys_obj::Actor_character_controller>(
+                auto phys_actor{
+                    phys_obj::Actor_character_controller(
                         JPH::RVec3{ 0.0f, 0.0f, 0.0f },
                         phys_obj::ACTOR_CC_TYPE_PLAYER,
                         phys_obj::Shape_params_cylinder{
                             .radius = 0.5f,
                             .half_height = 1.0f,
-                        });
+                        }) };
 
-                m_behaviors.reserve(3);
+                std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
+                behaviors.reserve(3);
                 auto& input{
-                    m_behaviors.emplace_back(
+                    behaviors.emplace_back(
                         std::make_unique<std_behavior::Gamepad_input_behavior>()) };
                 auto& movement{
-                    m_behaviors.emplace_back(
-                        std::make_unique<std_behavior::Humanoid_movement>(*m_phys_actor)) };
+                    behaviors.emplace_back(
+                        std::make_unique<std_behavior::Humanoid_movement>(std::move(phys_actor))) };
                 auto& animator{
-                    m_behaviors.emplace_back(
+                    behaviors.emplace_back(
                         std::make_unique<std_behavior::Humanoid_animator>()) };
+                assert(behaviors.size() == 3);
 
                 static_cast<std_behavior::Gamepad_input_behavior*>(input.get())
                     ->set_output(movement->get_data_key());
                 static_cast<std_behavior::Humanoid_movement*>(movement.get())
-                    ->set_output(animator->get_data_key());
+                    ->set_animator(animator->get_data_key());
 
-                editor.add_behavior_group({
-                    input.get(), movement.get(), animator.get(),
-                });
+                m_behavior_group_key = editor.add_behavior_group(std::move(behaviors));
             }
 
             void on_teardown(
                 simulating::Edit_behavior_groups_ifc& editor) override
             {
-                assert(m_behaviors.size() == 3);
-                editor.remove_behavior_group({
-                    m_behaviors[0].get(), m_behaviors[1].get(), m_behaviors[2].get(),
-                });
-
-                m_phys_actor = nullptr;
+                editor.remove_behavior_group(m_behavior_group_key);
             }
 
         private:
-            std::unique_ptr<phys_obj::Actor_character_controller> m_phys_actor{ nullptr };
-            std::vector<std::unique_ptr<simulating::Behavior_ifc>> m_behaviors;
+            using behavior_group_key_t =
+                simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
+            behavior_group_key_t m_behavior_group_key;
         };
         simulation.add_sim_entity_to_world(std::make_unique<Player_entity>());
         //////////////////////////////////////
