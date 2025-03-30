@@ -149,7 +149,7 @@ Engine::Engine()
 {
 }
 
-Engine::~Engine() = default;  // Define in .cpp for smart ptr pimpl.
+Engine::~Engine() = default;  // Define in .cpp for unique_ptr pimpl.
 
 bool Engine::run(
     const std::string& app_name,
