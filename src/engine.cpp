@@ -129,7 +129,61 @@ public:
                 simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
             behavior_group_key_t m_behavior_group_key;
         };
+
+        class Ground : public simulating::Entity_ifc
+        {
+        public:
+            void on_create(simulating::Edit_behavior_groups_ifc& editor,
+                           size_t creation_idx) override
+            {
+                std::vector<uint32_t> shapes_memory;
+                shapes_memory.reserve(3);
+
+                auto kinematic_phys_actor{
+                    phys_obj::Actor_kinematic(
+                        JPH::RVec3{ 0.0f, -10.0f, 0.0f },
+                        JPH::Quat::sIdentity(),
+                        {
+                            {
+                                .shape_type = phys_obj::SHAPE_TYPE_BOX,
+                                .shape_params{
+                                    phys_obj::construct_shape_into_memory<phys_obj::Shape_params_box>(
+                                        shapes_memory,
+                                        phys_obj::Shape_params_box{
+                                            .half_x = 10.0f,
+                                            .half_y = 1.0f,
+                                            .half_z = 10.0f,
+                                        }
+                                    ) },
+                            },
+                        }) };
+
+                assert(shapes_memory.size() != shapes_memory.max_size());
+
+                std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
+                behaviors.reserve(1);
+                auto& collider{
+                    behaviors.emplace_back(
+                        std::make_unique<std_behavior::Kinematic_collider>(std::move(kinematic_phys_actor))) };
+                assert(behaviors.size() == 1);
+
+                m_behavior_group_key = editor.add_behavior_group(std::move(behaviors));
+            }
+
+            void on_teardown(
+                simulating::Edit_behavior_groups_ifc& editor) override
+            {
+                editor.remove_behavior_group(m_behavior_group_key);
+            }
+
+        private:
+            using behavior_group_key_t =
+                simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
+            behavior_group_key_t m_behavior_group_key;
+        };
+
         simulation.add_sim_entity_to_world(std::make_unique<Player_entity>());
+        simulation.add_sim_entity_to_world(std::make_unique<Ground>());
         //////////////////////////////////////
 
         job_sources.emplace_back(&renderer);
