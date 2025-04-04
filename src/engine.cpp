@@ -97,6 +97,11 @@ public:
                             .half_height = 1.0f,
                         }) };
 
+                phys_obj::Transform_holder transform_holder{ false, phys_actor };
+
+                renderer::create_render_obj(some_3d_model, transform_holder);
+                assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
+
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
                 behaviors.reserve(3);
                 auto& input{
@@ -128,6 +133,8 @@ public:
             using behavior_group_key_t =
                 simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
             behavior_group_key_t m_behavior_group_key;
+
+            world_sim::Transform_read_ifc 
         };
 
         class Ground : public simulating::Entity_ifc
@@ -159,6 +166,11 @@ public:
                         }) };
 
                 assert(shapes_memory.size() != shapes_memory.max_size());
+
+                phys_obj::Transform_holder transform_holder{ false, kinematic_phys_actor };
+
+                renderer::create_render_obj(some_3d_model, transform_holder);
+                assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
 
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
                 behaviors.reserve(1);
