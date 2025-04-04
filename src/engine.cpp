@@ -169,7 +169,7 @@ public:
 
                 phys_obj::Transform_holder transform_holder{ false, kinematic_phys_actor };
 
-                renderer::create_render_obj(some_3d_model, transform_holder);
+                renderer::create_geo_instance_with_transform_holder(some_3d_model, transform_holder);
                 assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
 
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
