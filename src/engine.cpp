@@ -71,15 +71,21 @@ public:
         });
 
         // Instantiate job sources.
+        std::atomic_size_t num_job_sources_setup_incomplete{ 2 };
+
         std::vector<Job_source*> job_sources;
         Monolithic_renderer renderer{
+            num_job_sources_setup_incomplete,
             app_name,
             screen_width,
             screen_height,
             fallback_screen_width,
             fallback_screen_height
         };
-        World_simulation simulation{ num_threads };
+        World_simulation simulation{
+            num_job_sources_setup_incomplete,
+            num_threads
+        };
 
         // @TODO: @NOCHECKIN: Sample level. //
         class Player_entity : public simulating::Entity_ifc
@@ -239,12 +245,14 @@ public:
         simulation.add_sim_entity_to_world(std::make_unique<Ground>(renderer));
         //////////////////////////////////////
 
+        // Compile job sources.
         job_sources.emplace_back(&renderer);
         job_sources.emplace_back(&simulation);
+        assert(num_job_sources_setup_incomplete.load() == job_sources.size());
 
         // Create job system with job sources.
         Job_system job_system{ num_threads, std::move(job_sources) };
-        return job_system.run();
+        return job_system.run();  // @NOTE: Does not return except until program completion.
     }
 };
 
