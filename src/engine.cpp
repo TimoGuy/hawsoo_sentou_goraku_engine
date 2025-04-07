@@ -85,6 +85,11 @@ public:
         class Player_entity : public simulating::Entity_ifc
         {
         public:
+            Player_entity(Monolithic_renderer& renderer)
+                : m_renderer(renderer)
+            {
+            }
+
             void on_create(simulating::Edit_behavior_groups_ifc& editor,
                            size_t creation_idx) override
             {
@@ -97,10 +102,15 @@ public:
                             .half_height = 1.0f,
                         }) };
 
-                phys_obj::Transform_holder transform_holder{ false, phys_actor };
+                m_transform_holder =
+                    std::make_unique<phys_obj::Transform_holder>(false, phys_actor);
 
                 m_render_geo_obj_key =
-                    renderer::create_render_geo_obj(some_3d_model, transform_holder);
+                    m_renderer.create_render_geo_obj("model_player",
+                                                     "mat_set_player_0",
+                                                     geo_instance::Geo_render_pass::OPAQUE,
+                                                     true,
+                                                     m_transform_holder.get());
                 assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
 
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
@@ -127,23 +137,32 @@ public:
             void on_teardown(
                 simulating::Edit_behavior_groups_ifc& editor) override
             {
+                m_transform_holder = nullptr;
                 editor.remove_behavior_group(m_behavior_group_key);
-                renderer::destroy_render_geo_obj(m_render_geo_obj_key);
+                m_renderer.destroy_render_geo_obj(m_render_geo_obj_key);
             }
 
         private:
+            Monolithic_renderer& m_renderer;
+
             using behavior_group_key_t =
                 simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
             using render_geo_obj_key_t =
                 Monolithic_renderer::render_geo_obj_key_t;
 
-            behavior_group_key_t m_behavior_group_key;
+            std::unique_ptr<phys_obj::Transform_holder> m_transform_holder;
             render_geo_obj_key_t m_render_geo_obj_key;
+            behavior_group_key_t m_behavior_group_key;
         };
 
         class Ground : public simulating::Entity_ifc
         {
         public:
+            Ground(Monolithic_renderer& renderer)
+                : m_renderer(renderer)
+            {
+            }
+
             void on_create(simulating::Edit_behavior_groups_ifc& editor,
                            size_t creation_idx) override
             {
@@ -171,10 +190,15 @@ public:
 
                 assert(shapes_memory.size() != shapes_memory.max_size());
 
-                phys_obj::Transform_holder transform_holder{ false, kinematic_phys_actor };
+                m_transform_holder =
+                    std::make_unique<phys_obj::Transform_holder>(false, kinematic_phys_actor);
 
                 m_render_geo_obj_key =
-                    renderer::create_render_geo_obj(some_3d_model, transform_holder);
+                    m_renderer.create_render_geo_obj("model_ground",
+                                                     "mat_set_ground_0",
+                                                     geo_instance::Geo_render_pass::OPAQUE,
+                                                     true,
+                                                     m_transform_holder.get());
                 // @IDEA: @THEA: Perhaps could have there be an easy to create wrapper for a geo instance with a transform holder/reader. That might be really good!
                 // @IDEA: And then you could have another wrapper with the same interface for creating one without a transform reader. This kind could be manually updated!
                 // @TODO: There would have to be a way to notify the renderer to update its instance information when updating information from here tho.
@@ -193,22 +217,26 @@ public:
             void on_teardown(
                 simulating::Edit_behavior_groups_ifc& editor) override
             {
+                m_transform_holder = nullptr;
                 editor.remove_behavior_group(m_behavior_group_key);
-                renderer::destroy_render_geo_obj(m_render_geo_obj_key);
+                m_renderer.destroy_render_geo_obj(m_render_geo_obj_key);
             }
 
         private:
+            Monolithic_renderer& m_renderer;
+
             using behavior_group_key_t =
                 simulating::Edit_behavior_groups_ifc::behavior_group_key_t;
             using render_geo_obj_key_t =
                 Monolithic_renderer::render_geo_obj_key_t;
 
-            behavior_group_key_t m_behavior_group_key;
+            std::unique_ptr<phys_obj::Transform_holder> m_transform_holder;
             render_geo_obj_key_t m_render_geo_obj_key;
+            behavior_group_key_t m_behavior_group_key;
         };
 
-        simulation.add_sim_entity_to_world(std::make_unique<Player_entity>());
-        simulation.add_sim_entity_to_world(std::make_unique<Ground>());
+        simulation.add_sim_entity_to_world(std::make_unique<Player_entity>(renderer));
+        simulation.add_sim_entity_to_world(std::make_unique<Ground>(renderer));
         //////////////////////////////////////
 
         job_sources.emplace_back(&renderer);
