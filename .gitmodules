@@ -28,3 +28,6 @@
 [submodule "third_party/cglm"]
 	path = third_party/cglm
 	url = https://github.com/recp/cglm.git
+[submodule "components/world_streamer"]
+	path = components/world_streamer
+	url = https://github.com/TimoGuy/world_streamer.git
