@@ -37,7 +37,8 @@ set(monolithic_renderer_INCLUDE_DIR
 set(multithreaded_job_system_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/multithreaded_job_system/include)
 set(ticking_world_simulation_INCLUDE_DIR
-    ${CMAKE_CURRENT_SOURCE_DIR}/components/ticking_world_simulation/include)
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/ticking_world_simulation/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/ticking_world_simulation/third_party/JoltPhysics)
 set(timing_reporter_macro_magic_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/components/timing_reporter_macro_magic/include)  # @NOTE: header only.
 set(world_entity_INCLUDE_DIR
