@@ -113,11 +113,10 @@ public:
 
                 m_render_geo_obj_key =
                     m_renderer.create_render_geo_obj("model_player",
-                                                     "mat_set_player_0",
+                                                     "slime_girl_mat_set_0", //"mat_set_player_0",  @NOCHECKIN
                                                      geo_instance::Geo_render_pass::OPAQUE,
                                                      true,
                                                      m_transform_holder.get());
-                assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
 
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
                 behaviors.reserve(3);
@@ -201,14 +200,10 @@ public:
 
                 m_render_geo_obj_key =
                     m_renderer.create_render_geo_obj("model_ground",
-                                                     "mat_set_ground_0",
+                                                     "slime_girl_mat_set_0", // "mat_set_ground_0",  @NOCHECKIN
                                                      geo_instance::Geo_render_pass::OPAQUE,
                                                      true,
                                                      m_transform_holder.get());
-                // @IDEA: @THEA: Perhaps could have there be an easy to create wrapper for a geo instance with a transform holder/reader. That might be really good!
-                // @IDEA: And then you could have another wrapper with the same interface for creating one without a transform reader. This kind could be manually updated!
-                // @TODO: There would have to be a way to notify the renderer to update its instance information when updating information from here tho.
-                assert(false);  // @ASDFASDF: @TODO: @INCOMPLETE: Add connection from transform holder to render object.
 
                 std::vector<std::unique_ptr<simulating::Behavior_ifc>> behaviors;
                 behaviors.reserve(1);
