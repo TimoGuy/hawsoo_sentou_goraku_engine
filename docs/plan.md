@@ -39,9 +39,9 @@
 
 - [x] Basic 3D renderer.
 
-- [ ] Improvements.
+- [x] Improvements.
     - [x] Add model string lookup.
-    - [ ] Change input widget to just show monowidth text instead of the imgui widgets so that the window only has to be open for a fixed size.
+    - [x] Change input widget to just show monowidth text instead of the imgui widgets so that the window only has to be open for a fixed size.
 
 - [ ] 3D character controller.
 
