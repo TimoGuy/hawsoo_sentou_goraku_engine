@@ -112,7 +112,7 @@ public:
                     std::make_unique<phys_obj::Transform_holder>(false, phys_actor);
 
                 m_render_geo_obj_key =
-                    m_renderer.create_render_geo_obj("model_player",
+                    m_renderer.create_render_geo_obj("model_slime_girl",
                                                      "slime_girl_mat_set_0", //"mat_set_player_0",  @NOCHECKIN
                                                      geo_instance::Geo_render_pass::OPAQUE,
                                                      true,
@@ -199,8 +199,8 @@ public:
                     std::make_unique<phys_obj::Transform_holder>(false, kinematic_phys_actor);
 
                 m_render_geo_obj_key =
-                    m_renderer.create_render_geo_obj("model_ground",
-                                                     "slime_girl_mat_set_0", // "mat_set_ground_0",  @NOCHECKIN
+                    m_renderer.create_render_geo_obj("model_box",
+                                                     "box_mat_set_0", // "mat_set_ground_0",  @NOCHECKIN
                                                      geo_instance::Geo_render_pass::OPAQUE,
                                                      true,
                                                      m_transform_holder.get());
