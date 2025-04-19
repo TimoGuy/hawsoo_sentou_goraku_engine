@@ -45,7 +45,7 @@
 
 - [ ] 3D character controller.
     - [ ] Camera mode controls
-        - [ ] (For dev & photo mode): Right click free cam mode.
+        - [x] (For dev & photo mode): Right click free cam mode.
         - [ ] Program controlled cam mode. (Programmatically free cam mode essentially).
         - [ ] Focus 3rd person cam mode.
     - [ ] Camera mode switching.
