@@ -44,12 +44,17 @@
     - [x] Change input widget to just show monowidth text instead of the imgui widgets so that the window only has to be open for a fixed size.
 
 - [ ] 3D character controller.
-    - [ ] Camera mode controls
+    - [x] Camera mode controls
         - [x] (For dev & photo mode): Right click free cam mode.
-        - [ ] Program controlled cam mode. (Programmatically free cam mode essentially).
-        - [ ] Focus 3rd person cam mode.
-    - [ ] Camera mode switching.
+        - [d] Defer for later vvv
+            - [d] ~~Program controlled cam mode. (Programmatically free cam mode essentially).~~
+            - [d] ~~Focus 3rd person cam mode.~~
+    - [d] Camera mode switching.
     
+    - [ ] Add in physics update simulation.
+        - [ ] Adding update()
+            - @THINK: @TODO: For some reason it only works if I surround it with a mutex lock?????? Ig that is something I don't understand the reason why it is.
+        - [ ] Add calculated transforms into the transform holders.
     - [ ] Collide and slide algorithm.
     - [ ] Edge detection and not falling off.
 
