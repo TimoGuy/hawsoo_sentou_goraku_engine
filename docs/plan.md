@@ -61,6 +61,15 @@
 - [ ] Skeletal animations in renderer.
 
 - [ ] Combat animation and hitbox interaction.
+    - (As long as there are at least one hurtbox and hitbox) For 60 ticks/sec,
+        Use last-calculated skeletal animation information to:
+        - Set hitbox poses.
+        - Set hurtbox transforms (copy fromsoftware baton capsule style. If doing this 60 ticks/sec this should be high resolution enough).
+        - Deposit hurt messages.
+    - For 30 ticks/sec, (or 40? ... or possibly 60?)
+        Do main behavior interaction stuff:
+        - React to hurt messages.
+        - Calculate and do movement.
 
 - [ ] Humanoid Enemy AI.
     - ~~[ ] PVP~~ No probably not due to scope and adding more to the renderer or networking.
